@@ -17,8 +17,8 @@
  * limitations under the License.
  */
 /**
- * @file 5x5 matrix input field.
- * Displays an editable 5x5 matrix for controlling LED arrays.
+ * @file 8x8 matrix input field.
+ * Displays an editable 8x8 matrix for controlling LED arrays.
  * @author khanning@gmail.com (Kreg Hanning)
  */
 import * as Blockly from 'blockly/core'
@@ -114,7 +114,7 @@ class FieldMatrix8 extends Blockly.Field<string> {
   /**
    * Fixed size of the matrix thumbnail in the input field, in px.
    */
-  static readonly THUMBNAIL_SIZE = 26
+  static readonly THUMBNAIL_SIZE = 25
 
   /**
    * Fixed size of each matrix thumbnail node, in px.
@@ -132,19 +132,19 @@ class FieldMatrix8 extends Blockly.Field<string> {
   static readonly ARROW_SIZE = 12
 
   /**
-   * Fixed size of each button inside the 5x5 matrix, in px.
+   * Fixed size of each button inside the 8x8 matrix, in px.
    */
-  static readonly MATRIX_NODE_SIZE = 18
+  static readonly MATRIX_NODE_SIZE = 10
 
   /**
-   * Fixed corner radius for 5x5 matrix buttons, in px.
+   * Fixed corner radius for 8x8 matrix buttons, in px.
    */
-  static readonly MATRIX_NODE_RADIUS = 4
+  static readonly MATRIX_NODE_RADIUS = 3
 
   /**
-   * Fixed padding for 5x5 matrix buttons, in px.
+   * Fixed padding for 8x8 matrix buttons, in px.
    */
-  static readonly MATRIX_NODE_PAD = 5
+  static readonly MATRIX_NODE_PAD = 4
 
   /**
    * String with 64 '0' chars.
@@ -260,7 +260,7 @@ class FieldMatrix8 extends Blockly.Field<string> {
       },
       div,
     )
-    // Create the 5x5 matrix
+    // Create the 8x8 matrix
     this.ledButtons_ = []
     for (let i = 0; i < 8; i++) {
       for (let n = 0; n < 8; n++) {
@@ -405,7 +405,7 @@ class FieldMatrix8 extends Blockly.Field<string> {
   }
 
   setLEDNode_(led: number, state: LEDState) {
-    if (led < 0 || led > 24) return
+    if (led < 0 || led > 63) return
     const oldMatrix = this.getValue()
     if (!oldMatrix) return
     const newMatrix = oldMatrix.substr(0, led) + state + oldMatrix.substr(led + 1)
@@ -413,17 +413,17 @@ class FieldMatrix8 extends Blockly.Field<string> {
   }
 
   fillLEDNode_(led: number) {
-    if (led < 0 || led > 24) return
+    if (led < 0 || led > 63) return
     this.setLEDNode_(led, LEDState.ON)
   }
 
   clearLEDNode_(led: number) {
-    if (led < 0 || led > 24) return
+    if (led < 0 || led > 63) return
     this.setLEDNode_(led, LEDState.OFF)
   }
 
   toggleLEDNode_(led: number) {
-    if (led < 0 || led > 24) return
+    if (led < 0 || led > 63) return
     const value = this.getValue()
     if (!value) return
     if ((value.charAt(led) as LEDState) === LEDState.OFF) {
